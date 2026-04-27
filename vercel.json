@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/src/landing-page/v8-woo-lp.html" }
+  ]
+}
