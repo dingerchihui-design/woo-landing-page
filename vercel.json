@@ -1,4 +1,3 @@
 {
-  "outputDirectory": "src/landing-page",
-  "public": true
+  "cleanUrls": true
 }
