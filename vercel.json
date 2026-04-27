@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/output/images/:path*", "destination": "/src/landing-page/output/images/:path*" },
     { "source": "/", "destination": "/src/landing-page/v8-woo-lp.html" }
   ]
 }
