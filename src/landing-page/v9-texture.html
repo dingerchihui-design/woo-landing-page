@@ -48,7 +48,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 40px;
-    background: rgba(26,21,16,0.92);
+    background: transparent;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(26,21,16,0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -59,6 +63,21 @@
     letter-spacing: 0.12em;
     color: var(--light-text);
   }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(240,232,216,0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .nav-link:hover { color: var(--light-text); }
   .nav-cta {
     font-family: 'Inter', sans-serif;
     font-size: 12px;
@@ -76,12 +95,20 @@
 
   /* HERO */
   .hero {
-    position: relative;
+    background: var(--dark2);
+    padding: 68px 12px 12px;
     min-height: 100vh;
+    box-sizing: border-box;
+    margin-bottom: -1px; /* prevent subpixel gap before manifesto */
+  }
+  .hero-frame {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    height: calc(100vh - 92px);
     display: flex;
     align-items: flex-end;
-    overflow: hidden;
-    background: var(--dark);
+    background: var(--dark2);
   }
   .hero-img {
     position: absolute;
@@ -994,38 +1021,129 @@
   /* FOOTER */
   footer {
     background: var(--dark2);
-    padding: 56px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(240,232,216,0.05);
+    border-top: 1px solid rgba(240,232,216,0.06);
   }
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: 64px;
+    padding: 80px 40px 64px;
+    border-bottom: 1px solid rgba(240,232,216,0.06);
+  }
+  .footer-brand-col {}
   .footer-brand {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: 20px;
+    font-size: 24px;
     letter-spacing: 0.12em;
     color: var(--light-text);
+    margin-bottom: 16px;
   }
-  .footer-links {
+  .footer-tagline {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--light-sub);
+    max-width: 260px;
+    margin-bottom: 32px;
+  }
+  .footer-socials {
     display: flex;
-    gap: 32px;
+    gap: 16px;
   }
-  .footer-links a {
+  .footer-social {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(240,232,216,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .footer-social:hover {
+    border-color: rgba(200,168,130,0.5);
+    background: rgba(200,168,130,0.07);
+  }
+  .footer-social svg {
+    width: 15px;
+    height: 15px;
+    fill: var(--light-sub);
+    transition: fill 0.3s ease;
+  }
+  .footer-social:hover svg { fill: var(--accent-lt); }
+
+  .footer-col-title {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--light-sub);
+    margin-bottom: 24px;
+  }
+  .footer-col-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .footer-col-links a {
+    font-size: 13px;
+    color: rgba(240,232,216,0.5);
     text-decoration: none;
     transition: color 0.3s ease;
+    line-height: 1;
   }
-  .footer-links a:hover { color: var(--accent-lt); }
+  .footer-col-links a:hover { color: var(--light-text); }
+
+  .footer-contact-email {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    color: var(--accent-lt);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+  }
+  .footer-contact-email:hover { color: var(--light-text); }
+  .footer-contact-note {
+    font-size: 12px;
+    color: rgba(240,232,216,0.3);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
   .footer-copy {
     font-family: 'Space Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.08em;
     color: rgba(240,232,216,0.2);
+  }
+  .footer-legal {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-legal a {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    color: rgba(240,232,216,0.2);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-legal a:hover { color: var(--light-sub); }
+  .footer-location {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(240,232,216,0.15);
   }
 
   /* ── NOISE TEXTURE ── */
@@ -1042,11 +1160,11 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.07;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: 200px 200px;
+    mix-blend-mode: soft-light;
   }
   .manifesto { position: relative; }
   .how       { position: relative; }
@@ -1084,6 +1202,7 @@
   /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
+    .nav-links { display: none; }
     .hero-content { padding: 0 20px 64px; }
     .problem { padding: 80px 20px; }
     .problem-grid { grid-template-columns: 1fr; }
@@ -1112,8 +1231,9 @@
     .final-cta { padding: 100px 20px; }
     .email-form { flex-direction: column; border-radius: 12px; }
     .email-submit { border-radius: 0 0 12px 12px; }
-    footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 20px; }
-    .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .footer-main { grid-template-columns: 1fr 1fr; gap: 40px; padding: 48px 20px 40px; }
+    .footer-bottom { padding: 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .footer-legal { flex-wrap: wrap; gap: 16px; }
   }
 </style>
 </head>
@@ -1122,13 +1242,20 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">WOO</div>
+  <div class="nav-links">
+    <a href="#how" class="nav-link">How It Works</a>
+    <a href="#design" class="nav-link">Design</a>
+    <a href="#app" class="nav-link">The App</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+  </div>
   <a href="#cta" class="nav-cta">Join Waitlist</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-frame">
   <video id="hero-video" class="hero-img" autoplay muted loop playsinline>
-    <source src="output/images/Video 3-web.mp4" type="video/mp4">
+    <source src="output/images/Video 3.mp4" type="video/mp4">
   </video>
   <button class="hero-unmute" id="hero-unmute" title="Toggle sound" aria-label="Toggle sound">
     <!-- Muted icon -->
@@ -1147,6 +1274,7 @@
     </div>
     <p class="hero-note">No subscription. 7+ day battery. No screen required.</p>
   </div>
+  </div><!-- /hero-frame -->
 </section>
 
 <!-- MANIFESTO -->
@@ -1160,7 +1288,7 @@
 </section>
 
 <!-- PROBLEM -->
-<section class="problem">
+<section class="problem" id="problem">
   <div class="section-label">The Problem</div>
   <h2 class="section-h2">Your body already <em>knew.</em></h2>
   <p class="section-desc">Three minutes before the meeting. Midnight scrolling that goes nowhere. The third coffee you didn't need. Your nervous system was signaling — no one was listening.</p>
@@ -1328,7 +1456,7 @@
 </section>
 
 <!-- DESIGN -->
-<section class="design">
+<section class="design" id="design">
   <div class="design-img">
     <img src="output/images/09-design-material.jpg" alt="WOO Ring Material">
   </div>
@@ -1368,7 +1496,7 @@
 </section>
 
 <!-- APP SECTION -->
-<section class="app-section">
+<section class="app-section" id="app">
   <div class="app-caption">
 
     <!-- Left: editorial text -->
@@ -1476,7 +1604,7 @@
 </section>
 
 <!-- PRICING -->
-<section class="pricing">
+<section class="pricing" id="pricing">
   <div class="section-label">Pricing</div>
   <h2 class="section-h2">No surprises.<br><em>No subscriptions.</em></h2>
   <p class="section-desc">One price. Yours forever. Every feature, every update — included.</p>
@@ -1596,17 +1724,88 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand">WOO</div>
-  <div class="footer-links">
-    <a href="#">Privacy</a>
-    <a href="#">Contact</a>
-    <a href="#">Instagram</a>
-    <a href="#">Press</a>
+  <div class="footer-main">
+
+    <!-- Brand col -->
+    <div class="footer-brand-col">
+      <div class="footer-brand">WOO</div>
+      <p class="footer-tagline">A ring that senses stress before you do — and quietly guides you back. No screen. No score. Just breath.</p>
+      <div class="footer-socials">
+        <!-- Instagram -->
+        <a href="https://instagram.com/getwoo" class="footer-social" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <!-- X / Twitter -->
+        <a href="https://x.com/getwoo" class="footer-social" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com/company/oriole-tech" class="footer-social" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <!-- Kickstarter -->
+        <a href="https://kickstarter.com/projects/orioletech/woo-ring" class="footer-social" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.086 0H1.914C.857 0 0 .857 0 1.914v20.172C0 23.143.857 24 1.914 24h20.172C23.143 24 24 23.143 24 22.086V1.914C24 .857 23.143 0 22.086 0zM15.49 17.99l-3.553-5.405-1.593 1.82v3.586H7.125V6.01h3.219v5.147l4.791-5.147h3.938l-4.733 5.108 4.988 6.872h-3.838z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Product col -->
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="#how">How It Works</a>
+        <a href="#design">Ring Design</a>
+        <a href="#app">The App</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#cta">Join Waitlist</a>
+      </div>
+    </div>
+
+    <!-- Company col -->
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-col-links">
+        <a href="#">About Oriole Tech</a>
+        <a href="#">Press Kit</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Kickstarter Campaign</a>
+      </div>
+    </div>
+
+    <!-- Contact col -->
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <a href="mailto:hello@getwoo.com" class="footer-contact-email">hello@getwoo.com</a>
+      <p class="footer-contact-note">General enquiries &amp; waitlist support</p>
+      <a href="mailto:press@getwoo.com" class="footer-contact-email">press@getwoo.com</a>
+      <p class="footer-contact-note">Media &amp; press only</p>
+      <a href="mailto:partners@getwoo.com" class="footer-contact-email">partners@getwoo.com</a>
+      <p class="footer-contact-note">Wholesale &amp; partnership</p>
+    </div>
+
   </div>
-  <div class="footer-copy">© 2026 Oriole Tech. All rights reserved.</div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Oriole Tech, Inc. All rights reserved.</div>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Refund Policy</a>
+    </div>
+    <div class="footer-location">San Francisco, CA — Est. 2024</div>
+  </div>
 </footer>
 
 <script>
+  // Nav — transparent over hero, solid after scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.7);
+  }, { passive: true });
+
   // Hero video unmute toggle
   const heroVideo = document.getElementById('hero-video');
   const unmuteBtn = document.getElementById('hero-unmute');
