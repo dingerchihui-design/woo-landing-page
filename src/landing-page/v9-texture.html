@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOO — The Ring That Feels Before You Do</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #F4EEE3;
+    --bg2:       #EBE3D0;
+    --dark:      #1A1510;
+    --dark2:     #141108;
+    --text:      #1A1510;
+    --text-sub:  rgba(26,21,16,0.52);
+    --text-dim:  rgba(26,21,16,0.28);
+    --accent:    #7A5C36;
+    --signal:    #2D6B70;
+    --light-text:#F0E8D8;
+    --light-sub: rgba(240,232,216,0.52);
+    --accent-lt: #C8A882;
+    --signal-lt: #3A7E88;
+    --divide:    rgba(26,21,16,0.10);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    background: rgba(26,21,16,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    color: var(--light-text);
+  }
+  .nav-cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-lt);
+    text-decoration: none;
+    border: 1px solid rgba(200,168,130,0.4);
+    padding: 8px 20px;
+    border-radius: 980px;
+    transition: all 0.3s ease;
+  }
+  .nav-cta:hover { background: rgba(200,168,130,0.1); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--dark);
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    opacity: 0.7;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,21,16,0.92) 0%, rgba(26,21,16,0.3) 50%, transparent 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 40px 80px;
+    max-width: 720px;
+  }
+  .hero-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--signal-lt);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--signal-lt);
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1.0;
+    letter-spacing: -0.05em;
+    color: var(--light-text);
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent-lt);
+  }
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--light-sub);
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+  .btn-primary {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: var(--accent-lt);
+    padding: 14px 32px;
+    border-radius: 980px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover { background: #D4B490; }
+  .btn-secondary {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-lt);
+    padding: 14px 32px;
+    border-radius: 980px;
+    border: 1px solid rgba(200,168,130,0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+  .btn-secondary:hover { background: rgba(200,168,130,0.08); }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .hero-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--light-sub);
+    margin-top: 20px;
+  }
+  .hero-unmute {
+    position: absolute;
+    bottom: 32px;
+    right: 40px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(240,232,216,0.3);
+    background: rgba(26,21,16,0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .hero-unmute:hover {
+    border-color: rgba(240,232,216,0.6);
+    background: rgba(26,21,16,0.7);
+  }
+  .hero-unmute svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--light-text);
+  }
+
+  /* MANIFESTO */
+  .manifesto {
+    background: var(--dark2);
+    padding: 120px 40px;
+    text-align: center;
+  }
+  .manifesto-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 48px;
+  }
+  .m-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.85;
+    letter-spacing: 0.06em;
+    color: var(--light-text);
+  }
+  .manifesto-close-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.85;
+    letter-spacing: 0.06em;
+    color: var(--accent-lt);
+  }
+
+  /* PROBLEM */
+  .problem {
+    background: var(--bg);
+    padding: 120px 40px;
+  }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--signal);
+  }
+  .section-h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    max-width: 640px;
+    margin-bottom: 16px;
+  }
+  .section-h2 em { font-style: italic; color: var(--accent); }
+  .section-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-sub);
+    max-width: 520px;
+    margin-bottom: 64px;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 0;
+  }
+  .problem-item {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+  .problem-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(0.7) brightness(0.85);
+    transition: transform 0.6s ease;
+  }
+  .problem-item:hover img { transform: scale(1.03); }
+  .problem-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 32px 20px 20px;
+    background: linear-gradient(to top, rgba(26,21,16,0.8) 0%, transparent 100%);
+  }
+  .problem-caption p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--light-text);
+  }
+  .problem-transition {
+    margin-top: 80px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .problem-transition p {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .problem-transition p em { font-style: italic; color: var(--accent); }
+
+  /* SOLUTION */
+  .solution {
+    background: var(--bg2);
+    padding: 120px 40px;
+  }
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 64px;
+    align-items: start;
+  }
+  .solution-col-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--divide);
+  }
+  .solution-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--divide);
+  }
+  .solution-item-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .solution-item-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .solution-item-text.bad { color: var(--text-sub); text-decoration: line-through; }
+  .solution-item-text.good { color: var(--text); }
+  .solution-item-text.good em { font-style: italic; color: var(--accent); }
+
+  /* HOW IT WORKS */
+  .how {
+    background: var(--dark);
+    padding: 120px 40px;
+  }
+  .how .section-label { color: var(--signal-lt); }
+  .how .section-label::before { background: var(--signal-lt); }
+  .how .section-h2 { color: var(--light-text); }
+  .how .section-desc { color: var(--light-sub); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+  }
+  .step {
+    background: rgba(240,232,216,0.04);
+    padding: 40px 32px;
+    position: relative;
+  }
+  .step-svg {
+    display: block;
+    margin-bottom: 28px;
+    opacity: 0.9;
+  }
+  .step-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--signal-lt);
+    letter-spacing: 0.14em;
+    margin-bottom: 32px;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 1.2;
+    color: var(--light-text);
+    margin-bottom: 16px;
+  }
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--light-sub);
+  }
+  .step-spec {
+    margin-top: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--signal-lt);
+    letter-spacing: 0.08em;
+  }
+  .how-specs {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(240,232,216,0.07);
+    display: flex;
+    gap: 64px;
+  }
+  .spec-item { }
+  .spec-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 40px;
+    color: var(--accent-lt);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .spec-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light-sub);
+  }
+
+  /* SCENARIOS */
+  .scenarios {
+    background: var(--bg);
+    padding: 80px 0 120px;
+  }
+  .scenarios-header {
+    padding: 0 40px;
+    margin-bottom: 40px;
+  }
+  .scenario-list { }
+  .scenario-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 480px;
+  }
+  .scenario-item:nth-child(even) .scenario-text { order: -1; }
+  .scenario-img {
+    overflow: hidden;
+  }
+  .scenario-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(0.8) brightness(0.9);
+    display: block;
+    transform: scale(1.1);
+    will-change: transform;
+    transition: filter 0.6s ease;
+  }
+  .scenario-img {
+    position: relative;
+    overflow: hidden;
+  }
+  .scenario-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(244,238,227,0.55);
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+  }
+  .scenario-item.is-visible .scenario-img::after {
+    opacity: 0;
+  }
+  .scenario-text {
+    background: var(--bg2);
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .scenario-item:nth-child(odd) .scenario-text { background: var(--bg); }
+  .scenario-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.5s,
+                transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+  }
+  .scenario-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.65s,
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.65s;
+  }
+  .scenario-title em { font-style: italic; color: var(--accent); }
+  .scenario-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-sub);
+    max-width: 380px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.82s,
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.82s;
+  }
+  .scenario-item.is-visible .scenario-tag,
+  .scenario-item.is-visible .scenario-title,
+  .scenario-item.is-visible .scenario-body {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* DESIGN */
+  .design {
+    background: var(--dark2);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    min-height: 80vh;
+  }
+  .design-img {
+    overflow: hidden;
+  }
+  .design-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.88) saturate(0.8);
+  }
+  .design-text {
+    padding: 80px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-left: 1px solid rgba(240,232,216,0.06);
+  }
+  .design-text .section-label {
+    color: var(--signal-lt);
+    margin-bottom: 20px;
+  }
+  .design-text .section-label::before { background: var(--signal-lt); }
+  .design-text .design-rule {
+    width: 100%;
+    height: 1px;
+    background: rgba(240,232,216,0.12);
+    margin-bottom: 28px;
+  }
+  .design-text .section-h2 {
+    color: var(--light-text);
+    font-size: clamp(44px, 4vw, 68px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    max-width: 100%;
+  }
+  .design-specs {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .design-spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(240,232,216,0.07);
+  }
+  .design-spec-key {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light-sub);
+  }
+  .design-spec-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: var(--light-text);
+  }
+
+  /* APP SECTION */
+  .app-section {
+    background: var(--bg);
+  }
+  .app-caption {
+    padding: 100px 80px 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    border-bottom: 1px solid var(--divide);
+  }
+  .app-text-col .section-label { color: var(--signal); }
+  .app-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--divide);
+    margin-bottom: 32px;
+  }
+  .app-text-col .section-h2 {
+    font-size: clamp(44px, 4vw, 68px);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .app-text-col .section-desc {
+    margin-bottom: 0;
+  }
+  /* Feature grid — 一页纸 style */
+  .app-features-col {
+    padding-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 32px;
+  }
+  .af-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .af-svg {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+  .af-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .af-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-sub);
+    font-weight: 300;
+  }
+  .app-visual {
+    width: 100%;
+    height: 62vh;
+    overflow: hidden;
+  }
+  .app-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+    filter: brightness(0.92) saturate(0.85);
+  }
+
+  @media (max-width: 768px) {
+    .app-caption { padding: 64px 24px 48px; grid-template-columns: 1fr; gap: 48px; }
+    .app-features-col { padding-top: 0; }
+    .app-visual { height: 50vh; }
+    .app-principle { padding-right: 0; }
+  }
+
+  /* SOCIAL PROOF */
+  .proof {
+    background: var(--bg2);
+    padding: 120px 40px;
+    text-align: center;
+  }
+  .proof-stat {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(56px, 10vw, 112px);
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .proof-stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+    margin-bottom: 80px;
+  }
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    text-align: left;
+    margin-top: 64px;
+  }
+  .testimonial {
+    background: var(--bg);
+    padding: 40px 32px;
+  }
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .testimonial-author {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    color: var(--text-dim);
+  }
+
+  /* PRICING */
+  .pricing {
+    background: var(--bg);
+    padding: 120px 40px;
+  }
+  .pricing-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin-bottom: 8px;
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+  }
+  .pricing-tier {
+    background: var(--bg2);
+    padding: 48px 40px;
+    position: relative;
+  }
+  .pricing-tier.featured {
+    background: var(--dark);
+  }
+  .tier-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .pricing-tier.featured .tier-tag { color: var(--signal-lt); }
+  .tier-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .pricing-tier.featured .tier-price { color: var(--light-text); }
+  .tier-save {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--signal);
+    margin-bottom: 32px;
+    letter-spacing: 0.08em;
+  }
+  .pricing-tier.featured .tier-save { color: var(--signal-lt); }
+  .tier-features {
+    list-style: none;
+    margin-bottom: 40px;
+  }
+  .tier-features li {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-sub);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--divide);
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .pricing-tier.featured .tier-features li { color: var(--light-sub); border-color: rgba(240,232,216,0.07); }
+  .tier-features li::before {
+    content: '—';
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .pricing-tier.featured .tier-features li::before { color: var(--accent-lt); }
+  .tier-limit {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .pricing-tier.featured .tier-limit { color: var(--light-sub); }
+  .pricing-cta {
+    width: 100%;
+    text-align: center;
+  }
+  .no-sub {
+    margin-top: 48px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-sub);
+  }
+  .no-sub strong { color: var(--accent); }
+
+  /* FAQ */
+  .faq {
+    background: var(--bg2);
+    padding: 120px 40px;
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 80px;
+    margin-top: 64px;
+  }
+  .faq-item {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--divide);
+  }
+  .faq-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .faq-a {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-sub);
+  }
+
+  /* RISK */
+  .risk {
+    background: var(--bg);
+    padding: 120px 40px;
+  }
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+  }
+  .risk-item {
+    background: var(--bg2);
+    padding: 40px 32px;
+  }
+  .risk-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--signal);
+    letter-spacing: 0.14em;
+    margin-bottom: 16px;
+  }
+  .risk-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .risk-challenge {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-sub);
+    margin-bottom: 20px;
+  }
+  .risk-response {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: var(--dark);
+    padding: 160px 40px;
+    text-align: center;
+  }
+  .final-cta .section-label {
+    justify-content: center;
+    color: var(--signal-lt);
+    margin-bottom: 32px;
+  }
+  .final-cta .section-label::before { display: none; }
+  .final-cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--light-text);
+    max-width: 640px;
+    margin: 0 auto 20px;
+  }
+  .final-cta h2 em { font-style: italic; color: var(--accent-lt); }
+  .final-cta p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--light-sub);
+    max-width: 480px;
+    margin: 0 auto 48px;
+  }
+  .email-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    border: 1px solid rgba(200,168,130,0.3);
+    border-radius: 980px;
+    overflow: hidden;
+    background: rgba(240,232,216,0.04);
+  }
+  .email-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 16px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--light-text);
+    letter-spacing: 0.02em;
+  }
+  .email-input::placeholder { color: rgba(240,232,216,0.3); }
+  .email-submit {
+    background: var(--accent-lt);
+    color: var(--dark);
+    border: none;
+    padding: 16px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0 980px 980px 0;
+    transition: background 0.3s ease;
+  }
+  .email-submit:hover { background: #D4B490; }
+  .final-cta-note {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--light-sub);
+    opacity: 0.5;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark2);
+    padding: 56px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(240,232,216,0.05);
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+    color: var(--light-text);
+  }
+  .footer-links {
+    display: flex;
+    gap: 32px;
+  }
+  .footer-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--light-sub);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-links a:hover { color: var(--accent-lt); }
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(240,232,216,0.2);
+  }
+
+  /* ── NOISE TEXTURE ── */
+  /* Dark sections: manifesto, how, final-cta get a subtle film-grain overlay */
+  .manifesto,
+  .how,
+  .final-cta {
+    isolation: isolate;
+  }
+  .manifesto::before,
+  .how::before,
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+  .manifesto { position: relative; }
+  .how       { position: relative; }
+  .final-cta { position: relative; }
+
+  /* ── ENTRANCE ANIMATIONS ── */
+  /* Spring-like ease — approximates iOS momentum curve */
+  :root { --ease-spring: cubic-bezier(0.16, 1, 0.3, 1); }
+
+  .m-line {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s var(--ease-spring), transform 0.7s var(--ease-spring);
+  }
+  .manifesto-close-text {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s var(--ease-spring) 0.45s, transform 0.7s var(--ease-spring) 0.45s;
+  }
+  .manifesto.is-visible .m-line:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+  .manifesto.is-visible .m-line:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.12s; }
+  .manifesto.is-visible .m-line:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.24s; }
+  .manifesto.is-visible .manifesto-close-text { opacity: 1; transform: none; }
+
+  .step {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.65s var(--ease-spring), transform 0.65s var(--ease-spring);
+  }
+  .how.is-visible .step:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+  .how.is-visible .step:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.12s; }
+  .how.is-visible .step:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.24s; }
+  .how.is-visible .step:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.36s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .hero-content { padding: 0 20px 64px; }
+    .problem { padding: 80px 20px; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .problem-item { aspect-ratio: 16/9; }
+    .solution { padding: 80px 20px; }
+    .solution-grid { grid-template-columns: 1fr; gap: 40px; }
+    .how { padding: 80px 20px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .how-specs { flex-wrap: wrap; gap: 32px; }
+    .scenarios-header { padding: 0 20px; }
+    .scenario-item { grid-template-columns: 1fr; min-height: auto; }
+    .scenario-item:nth-child(even) .scenario-text { order: unset; }
+    .scenario-img { aspect-ratio: 16/9; }
+    .scenario-text { padding: 40px 24px; }
+    .design { grid-template-columns: 1fr; }
+    .design-img { aspect-ratio: 16/9; }
+    .design-text { padding: 48px 24px; }
+    .proof { padding: 80px 20px; }
+    .testimonials { grid-template-columns: 1fr; }
+    .pricing { padding: 80px 20px; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .faq { padding: 80px 20px; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .risk { padding: 80px 20px; }
+    .risk-grid { grid-template-columns: 1fr; }
+    .final-cta { padding: 100px 20px; }
+    .email-form { flex-direction: column; border-radius: 12px; }
+    .email-submit { border-radius: 0 0 12px 12px; }
+    footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 20px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">WOO</div>
+  <a href="#cta" class="nav-cta">Join Waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <video id="hero-video" class="hero-img" autoplay muted loop playsinline>
+    <source src="output/images/Video 3-web.mp4" type="video/mp4">
+  </video>
+  <button class="hero-unmute" id="hero-unmute" title="Toggle sound" aria-label="Toggle sound">
+    <!-- Muted icon -->
+    <svg id="icon-muted" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 12A4.5 4.5 0 0014 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0017.73 18l2 2L21 18.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+    <!-- Unmuted icon -->
+    <svg id="icon-sound" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+  </button>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">Kickstarter — Coming 2027</div>
+    <h1>The ring that feels<br><em>before you do.</em></h1>
+    <p class="hero-sub">WOO senses the shift in your heartbeat before your mind catches up. A gentle vibration. A breath. Then back to whatever matters.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Join Waitlist — Early Bird $120</a>
+      <a href="#how" class="btn-secondary">How It Works</a>
+    </div>
+    <p class="hero-note">No subscription. 7+ day battery. No screen required.</p>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-block">
+    <p class="m-line">We don't monitor you.</p>
+    <p class="m-line">We don't score you.</p>
+    <p class="m-line">We don't optimize you.</p>
+  </div>
+  <span class="manifesto-close-text">We just show up.</span>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-label">The Problem</div>
+  <h2 class="section-h2">Your body already <em>knew.</em></h2>
+  <p class="section-desc">Three minutes before the meeting. Midnight scrolling that goes nowhere. The third coffee you didn't need. Your nervous system was signaling — no one was listening.</p>
+
+  <div class="problem-grid">
+    <div class="problem-item">
+      <img src="output/images/Image 92.png" alt="Late night exhaustion">
+      <div class="problem-caption"><p>3am. The phone knows everything except what you need.</p></div>
+    </div>
+    <div class="problem-item">
+      <img src="output/images/Image 96.png" alt="Restless sleep">
+      <div class="problem-caption"><p>Restless but exhausted. Your body is asking to stop.</p></div>
+    </div>
+    <div class="problem-item">
+      <img src="output/images/Image 100.png" alt="Work tension">
+      <div class="problem-caption"><p>The shoulders tighten first. Then everything else follows.</p></div>
+    </div>
+  </div>
+
+  <div class="problem-transition">
+    <p>Every other ring watched.<br><em>WOO was the only one that said something.</em></p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-h2" style="color:var(--light-text)">The ring works.<br><em>You just breathe.</em></h2>
+  <p class="section-desc">Four things happen on your finger. None of them require your attention.</p>
+
+  <div class="steps">
+    <div class="step">
+      <!-- SVG: HRV wave — flat line that rises into heartbeat pattern, then flat again -->
+      <svg width="80" height="48" viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="step-svg">
+        <path d="M2 28 L18 28 L22 28 L26 10 L30 40 L34 20 L38 34 L42 28 L58 28 L62 22 L66 6 L70 38 L74 28 L78 28" stroke="#3A7E88" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="26" cy="10" r="1.5" fill="#3A7E88" opacity="0.6"/>
+        <circle cx="66" cy="6" r="1.5" fill="#3A7E88" opacity="0.6"/>
+      </svg>
+      <div class="step-number">01 — Senses</div>
+      <div class="step-title">The shift before the feeling</div>
+      <p class="step-desc">Optical sensors read your heart rate variability continuously. WOO detects the pattern shift — usually 60–90 seconds before you consciously notice stress.</p>
+      <div class="step-spec">HRV + PPG sensors</div>
+    </div>
+    <div class="step">
+      <!-- SVG: Concentric ellipses radiating outward from center, like haptic ripple from ring -->
+      <svg width="80" height="48" viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="step-svg">
+        <ellipse cx="40" cy="24" rx="6" ry="4" stroke="#3A7E88" stroke-width="1" opacity="0.9"/>
+        <ellipse cx="40" cy="24" rx="14" ry="9" stroke="#3A7E88" stroke-width="0.8" opacity="0.55"/>
+        <ellipse cx="40" cy="24" rx="23" ry="15" stroke="#3A7E88" stroke-width="0.6" opacity="0.28"/>
+        <ellipse cx="40" cy="24" rx="34" ry="21" stroke="#3A7E88" stroke-width="0.4" opacity="0.12"/>
+        <circle cx="40" cy="24" r="2" fill="#3A7E88" opacity="0.8"/>
+      </svg>
+      <div class="step-number">02 — Alerts</div>
+      <div class="step-title">A pulse. Not a notification.</div>
+      <p class="step-desc">A single gentle vibration on your finger. Not a buzz demanding attention — more like a hand on your shoulder. It says: I noticed. When you're ready.</p>
+      <div class="step-spec">Haptic motor — 0.08N</div>
+    </div>
+    <div class="step">
+      <!-- SVG: Box breathing wave — smooth sine curve, 4 phases: rise, plateau, fall, hold -->
+      <svg width="80" height="48" viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="step-svg">
+        <path d="M2 38 C8 38 10 10 18 10 L22 10 C30 10 32 38 40 38 L44 38 C52 38 54 10 62 10 L66 10 C74 10 76 38 78 38" stroke="#3A7E88" stroke-width="1" stroke-linecap="round"/>
+        <line x1="2" y1="38" x2="78" y2="38" stroke="#3A7E88" stroke-width="0.4" stroke-dasharray="2 3" opacity="0.3"/>
+        <line x1="2" y1="10" x2="78" y2="10" stroke="#3A7E88" stroke-width="0.4" stroke-dasharray="2 3" opacity="0.3"/>
+        <text x="4" y="46" font-family="monospace" font-size="6" fill="#3A7E88" opacity="0.5">IN</text>
+        <text x="22" y="46" font-family="monospace" font-size="6" fill="#3A7E88" opacity="0.5">HOLD</text>
+        <text x="44" y="46" font-family="monospace" font-size="6" fill="#3A7E88" opacity="0.5">OUT</text>
+        <text x="64" y="46" font-family="monospace" font-size="6" fill="#3A7E88" opacity="0.5">HOLD</text>
+      </svg>
+      <div class="step-number">03 — Guides</div>
+      <div class="step-title">Breath. Just breath.</div>
+      <p class="step-desc">A rhythm of short pulses guides a breathing pattern — inhale with the ring, hold, exhale. No counting. No screen. 90 seconds. Physiologically effective.</p>
+      <div class="step-spec">Box breathing — 4-4-4-4</div>
+    </div>
+    <div class="step">
+      <!-- SVG: Botanical flower — Victorian natural history style, hand-drawn wildflower with stem and leaves -->
+      <svg width="80" height="48" viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="step-svg">
+        <!-- stem -->
+        <path d="M40 46 C39 38 40 32 40 26" stroke="#3A7E88" stroke-width="0.9" stroke-linecap="round"/>
+        <!-- left leaf -->
+        <path d="M40 38 C35 35 28 36 26 32 C30 30 37 33 40 36" stroke="#3A7E88" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- leaf vein -->
+        <path d="M40 37 C35 34 29 33 26 32" stroke="#3A7E88" stroke-width="0.4" stroke-linecap="round" opacity="0.5"/>
+        <!-- right leaf -->
+        <path d="M40 33 C45 30 52 31 54 27 C50 25 43 28 40 32" stroke="#3A7E88" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- leaf vein -->
+        <path d="M40 32 C45 29 51 28 54 27" stroke="#3A7E88" stroke-width="0.4" stroke-linecap="round" opacity="0.5"/>
+        <!-- petals — 8 petals, slightly irregular hand-drawn feel -->
+        <path d="M40 24 C38 20 36 14 38 10 C40 8 42 14 40 24" stroke="#3A7E88" stroke-width="0.85" stroke-linecap="round" opacity="0.9"/>
+        <path d="M40 24 C44 21 50 18 52 14 C51 12 46 16 40 24" stroke="#3A7E88" stroke-width="0.85" stroke-linecap="round" opacity="0.75"/>
+        <path d="M40 24 C44 27 50 28 52 32 C50 33 45 29 40 24" stroke="#3A7E88" stroke-width="0.85" stroke-linecap="round" opacity="0.6"/>
+        <path d="M40 24 C36 27 30 28 28 32 C30 33 35 29 40 24" stroke="#3A7E88" stroke-width="0.85" stroke-linecap="round" opacity="0.55"/>
+        <path d="M40 24 C36 21 30 18 28 14 C29 12 34 16 40 24" stroke="#3A7E88" stroke-width="0.85" stroke-linecap="round" opacity="0.7"/>
+        <path d="M40 24 C42 19 46 14 44 10 C42 9 39 15 40 24" stroke="#3A7E88" stroke-width="0.8" stroke-linecap="round" opacity="0.65"/>
+        <path d="M40 24 C43 27 48 30 46 34 C44 35 41 29 40 24" stroke="#3A7E88" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+        <path d="M40 24 C37 19 34 14 36 10 C38 9 41 15 40 24" stroke="#3A7E88" stroke-width="0.8" stroke-linecap="round" opacity="0.6"/>
+        <!-- flower center -->
+        <circle cx="40" cy="24" r="3.2" stroke="#3A7E88" stroke-width="0.8" opacity="0.85"/>
+        <circle cx="40" cy="24" r="1.2" fill="#3A7E88" opacity="0.5"/>
+        <!-- small dots on center -->
+        <circle cx="39" cy="23" r="0.4" fill="#3A7E88" opacity="0.6"/>
+        <circle cx="41" cy="23" r="0.4" fill="#3A7E88" opacity="0.6"/>
+        <circle cx="40" cy="25" r="0.4" fill="#3A7E88" opacity="0.6"/>
+      </svg>
+      <div class="step-number">04 — Records</div>
+      <div class="step-title">Context, not scores</div>
+      <p class="step-desc">At day's end, sync optionally to see when moments happened and how you responded. Patterns, not judgements. All data stays on device by default.</p>
+      <div class="step-spec">Local-first storage</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- SCENARIOS -->
+<section class="scenarios">
+  <div class="scenarios-header">
+    <div class="section-label">When It Matters</div>
+    <h2 class="section-h2">Four moments<br>that change everything.</h2>
+  </div>
+
+  <div class="scenario-list">
+    <div class="scenario-item">
+      <div class="scenario-img">
+        <img src="output/images/05-scene-sleep.jpg" alt="Sleep">
+      </div>
+      <div class="scenario-text">
+        <div class="scenario-tag">01 — Night</div>
+        <h3 class="scenario-title">The body preparing<br><em>to let go.</em></h3>
+        <p class="scenario-body">WOO detects pre-sleep tension — racing thoughts, elevated heart rate — and begins a wind-down rhythm before you lie down. You don't choose to use it. It just begins.</p>
+      </div>
+    </div>
+
+    <div class="scenario-item">
+      <div class="scenario-img">
+        <img src="output/images/06-scene-morning.jpg" alt="Morning work">
+      </div>
+      <div class="scenario-text">
+        <div class="scenario-tag">02 — Morning</div>
+        <h3 class="scenario-title">The meeting in<br><em>twenty minutes.</em></h3>
+        <p class="scenario-body">Before you open the door, WOO has already been working. The presentation nerves that spiked on your walk over — caught, guided, quieted. No one needs to know.</p>
+      </div>
+    </div>
+
+    <div class="scenario-item">
+      <div class="scenario-img">
+        <img src="output/images/07-scene-walk.jpg" alt="Movement">
+      </div>
+      <div class="scenario-text">
+        <div class="scenario-tag">03 — Movement</div>
+        <h3 class="scenario-title">The shift that happens<br><em>while walking.</em></h3>
+        <p class="scenario-body">Some tension only releases in motion. WOO reads the difference between exercise stress and anxiety stress — and only intervenes for the second kind. It knows the difference.</p>
+      </div>
+    </div>
+
+    <div class="scenario-item">
+      <div class="scenario-img">
+        <img src="output/images/08-scene-meditation.jpg" alt="Still moment">
+      </div>
+      <div class="scenario-text">
+        <div class="scenario-tag">04 — Stillness</div>
+        <h3 class="scenario-title">The pause you<br><em>almost didn't take.</em></h3>
+        <p class="scenario-body">You made tea. You sat down. WOO recognized the drop in arousal — and didn't interrupt. Sometimes the best intervention is knowing when not to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN -->
+<section class="design">
+  <div class="design-img">
+    <img src="output/images/09-design-material.jpg" alt="WOO Ring Material">
+  </div>
+  <div class="design-text">
+    <div class="section-label">Design</div>
+    <div class="design-rule"></div>
+    <h2 class="section-h2" style="color:var(--light-text);">First, a ring.<br>Then, everything else.</h2>
+    <p style="font-size:14px;line-height:1.8;color:var(--light-sub);max-width:320px;margin-bottom:40px;">No branding. No charging port. No LED. Just a ring — the kind you'd choose anyway.</p>
+
+    <div class="design-specs">
+      <div class="design-spec-row">
+        <span class="design-spec-key">Material</span>
+        <span class="design-spec-val">Titanium alloy</span>
+      </div>
+      <div class="design-spec-row">
+        <span class="design-spec-key">Profile</span>
+        <span class="design-spec-val">≤3mm height</span>
+      </div>
+      <div class="design-spec-row">
+        <span class="design-spec-key">Weight</span>
+        <span class="design-spec-val">&lt;5 grams</span>
+      </div>
+      <div class="design-spec-row">
+        <span class="design-spec-key">Finish</span>
+        <span class="design-spec-val">Brushed matte</span>
+      </div>
+      <div class="design-spec-row">
+        <span class="design-spec-key">Hypoallergenic</span>
+        <span class="design-spec-val">Medical grade</span>
+      </div>
+      <div class="design-spec-row">
+        <span class="design-spec-key">Wear</span>
+        <span class="design-spec-val">24/7 comfortable</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP SECTION -->
+<section class="app-section">
+  <div class="app-caption">
+
+    <!-- Left: editorial text -->
+    <div class="app-text-col">
+      <div class="section-label">The App</div>
+      <div class="app-rule"></div>
+      <h2 class="section-h2">Designed to<br><em>disappear.</em></h2>
+      <p class="section-desc">Check in when you want. Ignore it when you don't. WOO works either way.</p>
+    </div>
+
+    <!-- Right: feature SVGs — 一页纸 style -->
+    <div class="app-features-col">
+
+      <!-- HRV Sensing -->
+      <div class="af-item">
+        <svg class="af-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="2" y1="24" x2="10" y2="24" stroke="#2D6B70" stroke-width="1" stroke-linecap="round"/>
+          <polyline points="10,24 14,24 17,12 21,36 25,20 28,28 31,24 38,24" stroke="#2D6B70" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="38" y1="24" x2="46" y2="24" stroke="#2D6B70" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <div class="af-label">HRV Sensing</div>
+          <div class="af-desc">Continuous, passive. No buttons to press.</div>
+        </div>
+      </div>
+
+      <!-- Breathing -->
+      <div class="af-item">
+        <svg class="af-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="20" stroke="#2D6B70" stroke-width="0.8" opacity="0.3"/>
+          <circle cx="24" cy="24" r="14" stroke="#2D6B70" stroke-width="0.8" opacity="0.55"/>
+          <circle cx="24" cy="24" r="8" stroke="#2D6B70" stroke-width="1"/>
+          <circle cx="24" cy="24" r="2.5" fill="#2D6B70"/>
+        </svg>
+        <div>
+          <div class="af-label">Breathing Guide</div>
+          <div class="af-desc">Triggered by the ring. No screen needed.</div>
+        </div>
+      </div>
+
+      <!-- Weekly Pattern -->
+      <div class="af-item">
+        <svg class="af-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 7 dots — moments across a week, not scores -->
+          <circle cx="4"  cy="24" r="2.2" fill="#2D6B70" opacity="0.15"/>
+          <circle cx="11" cy="24" r="2.2" fill="#2D6B70" opacity="0.4"/>
+          <circle cx="18" cy="24" r="2.2" fill="#2D6B70" opacity="0.7"/>
+          <circle cx="25" cy="24" r="2.2" fill="#2D6B70" opacity="1"/>
+          <circle cx="32" cy="24" r="2.2" fill="#2D6B70" opacity="0.55"/>
+          <circle cx="39" cy="24" r="2.2" fill="#2D6B70" opacity="0.3"/>
+          <circle cx="46" cy="24" r="2.2" fill="#2D6B70" opacity="0.12"/>
+        </svg>
+        <div>
+          <div class="af-label">Weekly Pattern</div>
+          <div class="af-desc">Context, not scores. Patterns you can use.</div>
+        </div>
+      </div>
+
+      <!-- Local-first -->
+      <div class="af-item">
+        <svg class="af-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="15" y="6" width="18" height="30" rx="3" stroke="#2D6B70" stroke-width="1"/>
+          <line x1="21" y1="33" x2="27" y2="33" stroke="#2D6B70" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="28" cy="34" r="7" fill="var(--bg)" stroke="#2D6B70" stroke-width="1"/>
+          <path d="M25 34 L27.5 36.5 L32 31.5" stroke="#2D6B70" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <div class="af-label">Local-first</div>
+          <div class="af-desc">Data lives on your phone. Nothing leaves without you.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="app-visual">
+    <img src="output/images/ChatGPT Image 2026年4月27日 20_45_39.png" alt="WOO app in a quiet morning scene">
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof">
+  <div class="proof-stat">2,847</div>
+  <div class="proof-stat-label">People on the waitlist</div>
+
+  <div class="section-label" style="justify-content:center;margin-bottom:8px;">
+    Early Voices
+  </div>
+  <h2 class="section-h2" style="margin:0 auto 16px;text-align:center;">"This is what I was<br><em>looking for.</em>"</h2>
+
+  <div class="testimonials">
+    <div class="testimonial">
+      <p class="testimonial-quote">"I've tried every wellness tracker. They all made me feel worse about myself. A ring that doesn't judge me — I'll try that."</p>
+      <div class="testimonial-author">— Sarah K., London — Early Interest Respondent</div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-quote">"The moment I read 'we don't score you' I knew this was different. I'm so tired of being optimized."</p>
+      <div class="testimonial-author">— Marcus T., New York — Beta Survey</div>
+    </div>
+    <div class="testimonial">
+      <p class="testimonial-quote">"I wear jewelry every day. I never thought technology could feel like that — until now."</p>
+      <div class="testimonial-author">— Priya M., Toronto — Design Survey</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-h2">No surprises.<br><em>No subscriptions.</em></h2>
+  <p class="section-desc">One price. Yours forever. Every feature, every update — included.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-tier">
+      <div class="tier-tag">Early Bird I</div>
+      <div class="tier-price">$120</div>
+      <div class="tier-save">Save $60 — 33% off</div>
+      <ul class="tier-features">
+        <li>WOO Ring (your size)</li>
+        <li>Charging case</li>
+        <li>First to ship — Q1 2027</li>
+        <li>Lifetime software updates</li>
+        <li>No subscription, ever</li>
+      </ul>
+      <div class="tier-limit">100 units only</div>
+      <a href="#cta" class="btn-secondary pricing-cta">Reserve Early Bird I</a>
+    </div>
+
+    <div class="pricing-tier featured">
+      <div class="tier-tag">Early Bird II — Most Popular</div>
+      <div class="tier-price" style="color:var(--accent-lt)">$150</div>
+      <div class="tier-save">Save $30 — 17% off</div>
+      <ul class="tier-features">
+        <li>WOO Ring (your size)</li>
+        <li>Premium charging case</li>
+        <li>Q1–Q2 2027 shipping</li>
+        <li>Lifetime software updates</li>
+        <li>No subscription, ever</li>
+        <li>Backer community access</li>
+      </ul>
+      <div class="tier-limit">200 units only</div>
+      <a href="#cta" class="btn-primary pricing-cta">Reserve Early Bird II</a>
+    </div>
+
+    <div class="pricing-tier">
+      <div class="tier-tag">Standard</div>
+      <div class="tier-price">$180</div>
+      <div class="tier-save">Full retail price</div>
+      <ul class="tier-features">
+        <li>WOO Ring (your size)</li>
+        <li>Charging case</li>
+        <li>Post-campaign shipping</li>
+        <li>Lifetime software updates</li>
+        <li>No subscription, ever</li>
+      </ul>
+      <div class="tier-limit">Open quantity</div>
+      <a href="#cta" class="btn-secondary pricing-cta">Reserve Standard</a>
+    </div>
+  </div>
+
+  <p class="no-sub">Compare: Oura Ring charges <strong>$5.99/month</strong> after purchase. WOO: <strong>$0/month. Always.</strong></p>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="section-label">Questions</div>
+  <h2 class="section-h2">Things worth<br><em>asking.</em></h2>
+
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q">When does it ship?</div>
+      <p class="faq-a">Early Bird I backers ship Q1 2027. Early Bird II and Standard ship Q1–Q2 2027. We'll send monthly updates — no silence.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How does it detect stress?</div>
+      <p class="faq-a">WOO monitors heart rate variability patterns — the rhythmic variation between heartbeats. Stress consistently changes these patterns in ways detectable 60–90 seconds before you feel it. This is established physiology, not a proprietary algorithm.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does it need my phone nearby?</div>
+      <p class="faq-a">No. WOO is fully independent. Sensing, alerting, and guiding all happen on the ring itself. Sync to your phone only when you want to review patterns.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Will anyone know I'm wearing it?</div>
+      <p class="faq-a">No LED indicators. No visible sensors. No charging port visible when worn. It looks like a brushed titanium ring. That's the entire point.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What sizes are available?</div>
+      <p class="faq-a">US sizes 5 through 12. We'll send a sizing kit before manufacturing locks in — no guessing from a chart.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How is it different from Oura or RingConn?</div>
+      <p class="faq-a">Those rings track and report — they tell you what happened. WOO intervenes in the moment with guided breathing. Different category, different purpose. Also: no subscription.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What about my data and privacy?</div>
+      <p class="faq-a">All data is stored locally on the ring by default. Sync is optional. We don't see your data, sell your data, or need your data. Your health patterns are yours.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is it a medical device?</div>
+      <p class="faq-a">No. WOO is a wellness product. It is not intended to diagnose, treat, or prevent any medical condition. If you have cardiovascular concerns, please consult a physician.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How accurate is the stress detection?</div>
+      <p class="faq-a">We're currently in validation with 200+ beta wearers. We'll share accuracy data before the campaign closes — we'd rather under-promise than disappoint.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if the technology doesn't deliver?</div>
+      <p class="faq-a">Full refunds — no questions — if the core functionality doesn't work as described. We'll also communicate openly if timelines shift. Kickstarter backers accept risk; we accept responsibility for honesty.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="cta">
+  <div class="section-label">Join the Waitlist</div>
+  <h2>Be among the first<br>to feel <em>the difference.</em></h2>
+  <p>Early Bird pricing locks when the campaign opens. Enter your email — we'll notify you the moment it launches, and not before.</p>
+
+  <form class="email-form" onsubmit="return false;">
+    <input type="email" class="email-input" placeholder="your@email.com">
+    <button type="submit" class="email-submit">Reserve My Spot</button>
+  </form>
+  <p class="final-cta-note">No spam. No sharing. Unsubscribe anytime. Early Bird I: $120 / 100 units.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">WOO</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Contact</a>
+    <a href="#">Instagram</a>
+    <a href="#">Press</a>
+  </div>
+  <div class="footer-copy">© 2026 Oriole Tech. All rights reserved.</div>
+</footer>
+
+<script>
+  // Hero video unmute toggle
+  const heroVideo = document.getElementById('hero-video');
+  const unmuteBtn = document.getElementById('hero-unmute');
+  const iconMuted = document.getElementById('icon-muted');
+  const iconSound = document.getElementById('icon-sound');
+
+  unmuteBtn.addEventListener('click', () => {
+    heroVideo.muted = !heroVideo.muted;
+    iconMuted.style.display = heroVideo.muted ? '' : 'none';
+    iconSound.style.display = heroVideo.muted ? 'none' : '';
+  });
+
+  // MANIFESTO + HOW — entrance animations (once)
+  const sectionEntryObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        sectionEntryObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.manifesto, .how').forEach(el => {
+    sectionEntryObserver.observe(el);
+  });
+
+  // WHEN IT MATTERS — re-triggerable scroll animations
+  const scenarioObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      } else {
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.scenario-item').forEach(el => {
+    scenarioObserver.observe(el);
+  });
+
+  // Parallax scroll on scenario images
+  let rafPending = false;
+  function updateParallax() {
+    document.querySelectorAll('.scenario-img img').forEach(img => {
+      const item = img.closest('.scenario-item');
+      const rect = item.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (rect.bottom < 0 || rect.top > vh) return;
+      const progress = (vh - rect.top) / (vh + rect.height);
+      const offset = (progress - 0.5) * 72;
+      img.style.transform = `scale(1.1) translateY(${offset}px)`;
+    });
+    rafPending = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(updateParallax);
+    }
+  }, { passive: true });
+
+  updateParallax();
+</script>
+</body>
+</html>
